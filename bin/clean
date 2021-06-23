@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Clean up the following docker containers"
+docker container ls -aq
+
+docker container stop $(docker container ls -aq)
+docker container rm $(docker container ls -aq)

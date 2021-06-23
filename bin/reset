@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Reset server..."
+docker container restart sink
+
+echo "Restarting server log..."
+docker logs -f sink

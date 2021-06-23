@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo "Setting up docker network"
+docker network create --driver bridge my_interview_bridge
+
+echo "Setting up http sink"
+pushd ./sink/
+docker build -t my-sink .
+docker run -d -p 9009:9009 --name=sink --net=my_interview_bridge my-sink
+popd
+
+echo "Setting up prometheus"
+pushd ./prometheus/
+docker build -t my-prometheus .
+docker run -d -p 9090:9090 --name=prom --net=my_interview_bridge my-prometheus
+popd
+
+echo "Starting server log..."
+docker logs -f sink

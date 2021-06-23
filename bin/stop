@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Stop the following docker containers"
+docker container ls -aq
+
+docker container stop $(docker container ls -aq)
